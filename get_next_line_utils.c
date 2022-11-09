@@ -12,6 +12,33 @@
 
 #include "get_next_line.h"
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	i;
+	char			*new;
+	unsigned int	j;
+
+	if (!s)
+		return (NULL);
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	new = malloc(sizeof(char) * len + 1);
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[j] && i < len)
+	{
+		if (j >= start && i < len)
+		{
+			new[i] = s[j];
+			i++;
+		}
+		j++;
+	}
+	new[i] = '\0';
+	return (new);
+}
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
@@ -30,17 +57,11 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char)c)
-        {
-            free((char *)s);
 			return ((char *)&s[i + 1]);
-        }
 		i++;
 	}
 	if (c == '\0')
-    {
-        free((char *)s);
 		return ((char *)&s[i + 1]);
-    }
 	return (NULL);
 }
 
@@ -82,22 +103,22 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-    if(s1)
-    {
+   // if(s1)
+   // {
 	    while (s1[i])
 	    {
 		    new[i] = s1[i];
 		    i++;
 	    }
-    }
+    //}
 	while (s2[j])
 	{
 		new[i] = s2[j];
 		i++;
 		j++;
 	}
-	new[i] = '\0';
-    //free(s1);
+	new[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+    	free(s1);
 	return (new);
 }
  
